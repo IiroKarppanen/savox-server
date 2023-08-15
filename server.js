@@ -10,6 +10,7 @@ function checkTokenValidity(api_token){
 let server = http.createServer();
 let sockserver = new ws.WebSocketServer({ server : server });
 
+console.log(sockserver);
 
 server.listen(8080);
 

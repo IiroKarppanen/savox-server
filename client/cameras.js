@@ -100,7 +100,9 @@ function handleDeviceData(devName, data){
 }
 
 function connect(){
-  let ws=new WebSocket("ws://localhost:8080/api/websockets");
+  //savox-server.vercel.ap
+  let ws=new WebSocket("ws://savox-server.onrender.com");
+  //let ws=new WebSocket("ws://localhost:8080/api/websockets");
   ws.binaryType = "arraybuffer";
  
   ws.addEventListener("open", (e) => {
