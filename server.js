@@ -6,17 +6,11 @@ function checkTokenValidity(api_token){
   return api_token == "secret_token 321";
 }
 
-try{
-	fs.unlinkSync('/tmp/savox.sock');
-}
-catch(error){
-	console.log(error);
-};
 
 let server = http.createServer();
 let sockserver = new ws.WebSocketServer({ server : server });
 
-server.listen('/tmp/savox.sock', e=>fs.chmodSync('/tmp/savox.sock', 666));
+server.listen(8080);
 
 function parseClientInfo(ws, req){
   let clientInfo = {

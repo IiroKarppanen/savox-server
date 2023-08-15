@@ -100,7 +100,7 @@ function handleDeviceData(devName, data){
 }
 
 function connect(){
-  let ws=new WebSocket("wss://savox.protopaja.aalto.fi/api/websockets");
+  let ws=new WebSocket("ws://localhost:8080/api/websockets");
   ws.binaryType = "arraybuffer";
  
   ws.addEventListener("open", (e) => {
