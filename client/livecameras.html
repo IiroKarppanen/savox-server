@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<head>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>  
+  <link rel="shortcut icon" href="#" />
+  <title>Savox Thermal Camera Feed</title>
+</head>
+<body>
+  <div class="logo-div" id="logo-div">
+    <img src="img/savox_logo.svg" alt="" id="logo"/>
+  </div>
+
+  <div class="buttons" id="buttons">
+    <button class="mapButton" id="mapButton" onclick="toggleMap();">
+      <img class="mapButtonIcon" id="mapButtonIcon"/>
+    </button>
+    <button id="togglePanel" id="togglePanel" onclick="toggleSidePanel();">
+      <img src="img/arrow.svg" class="togglePanelIcon" id="togglePanelIcon"/>
+    </button>
+    
+    <button id="toggleSettings" id="toggleSettings" onclick="toggleSettings();">
+      <img src="img/settings.svg" class="toggleSettingsIcon" id="toggleSettingsIcon"/>
+    </button>
+
+  </div>
+
+  <div class="app">    
+    <div class="main-container">
+
+      <div class="loading" id="loading">
+        <div class="spinner"></div>
+      </div>
+      <div class="map" id="map" style="display: none;"></div>
+
+      <div class="settings-minimized" id="settings">
+
+        <div class="title-box">
+          <h1>Layers</h1>
+        </div>
+        
+        <div class="label-container">
+          <h2>Location Labels</h2>
+          <label class="switch">
+            <input type="checkbox" id="locationLabel" name="locationLabel" checked onchange="toggleOption('locationLabel', checked);">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div class="label-container">
+          <h2>Street Labels</h2>
+          <label class="switch">
+            <input type="checkbox" id="streetLabel" name="streetLabel" checked onchange="toggleOption('streetLabel', checked);">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div class="label-container">
+          <h2>Road Highlight</h2>
+          <label class="switch">
+            <input type="checkbox" id="streetHighlight" name="streetHighlight" checked onchange="toggleOption('streetHighlight' ,checked);">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div class="label-container">
+          <h2>3D Buildings</h2>
+          <label class="switch">
+            <input type="checkbox" id="buildings" name="buildings" checked onchange="toggleOption('buildings', checked);">
+            <span class="slider round"></span>
+          </label>
+        </div>
+
+        <div class="title-box2">
+          <h1>Themes</h1>
+        </div>
+        
+        <div class="layer-container" style="background-image: url('img/satellite.png');" onclick="switchTheme('mapbox://styles/iirokarppanen/clkmn36ts001q01qx71oycubk');">
+            <span class="overlay"></span>
+            <div class="layer-content">
+              <h1>Satellite</h1>
+            </div>
+          </div>
+          <div class="layer-container" style="background-image: url('img/dark.png');" onclick="switchTheme('mapbox://styles/mapbox/dark-v11');">
+            <span class="overlay"></span>
+            <div class="layer-content">
+              <h1>Dark</h1>
+            </div>
+        </div>      
+           
+      </div>
+
+      <div class="cameras" id="cameras">
+        <div class="no-signal" id="no-signal">
+          <h1>No Signal</h1>
+        </div>
+          <div class="camera-container" id="camera-container">
+            <canvas class="camera-canvas"  id="thermal_canvas"></canvas>
+            <button class="fullscreen-button" onclick="toggleFullScreen('thermal_canvas')">
+              <img src="img/fullscreen.svg" alt="" id="fullscreen-icon"/>
+            </button>
+          </div>
+          <div class="camera-container" id="camera-container">
+            <canvas class="camera-canvas"  id="hd_canvas"></canvas> 
+            <button class="fullscreen-button" onclick="toggleFullScreen('hd_canvas')">
+              <img src="img/fullscreen.svg" alt="" id="fullscreen-icon"/>
+            </button>
+          </div>
+      </div>
+    </div>
+  
+    <div class="devices" id="devices">
+      <h1>Devices</h1>
+      <ul id="deviceList">
+      </ul> 
+    </div>
+  </div>
+
+  <script src="cameras.js"></script>
+  <script src="map.js"></script>
+</body>

@@ -1,0 +1,8 @@
+#*.json
+node_modules/
+*.png
+*.jpeg
+*.jpg
+*.bmp
+*.mp4
+*.avi
