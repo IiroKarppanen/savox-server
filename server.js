@@ -6,13 +6,11 @@ function checkTokenValidity(api_token){
   return api_token == "secret_token 321";
 }
 
-
 let server = http.createServer();
-let sockserver = new ws.WebSocketServer({ server : server });
+const sockserver = new ws.Server({ noServer: true });
 
-console.log(sockserver);
+server.listen(8080); // Listen on port 8080
 
-server.listen(8080);
 
 function parseClientInfo(ws, req){
   let clientInfo = {
@@ -52,6 +50,18 @@ function parseClientInfo(ws, req){
 
   return clientInfo;
 }
+
+server.on('upgrade', (request, socket, head) => {
+  sockserver.handleUpgrade(request, socket, head, (ws) => {
+    const clientInfo = parseClientInfo(ws, request);
+    
+    ws.on('close', () => onClose(clientInfo));
+    ws.on('message', (data) => onMessage(clientInfo, data));
+    ws.on('error', () => console.log('websocket error'));
+    
+    sockserver.emit('connection', ws, request);
+  });
+});
 
 function onClose(clientInfo){
   if(clientInfo["isDevice"] && clientInfo["allowedToStream"]){
