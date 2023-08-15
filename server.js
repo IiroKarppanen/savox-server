@@ -86,6 +86,12 @@ function onMessage(clientInfo, data) {
   });
 }
 
+sockserver.onopen = function(event) {
+  console.log("WebSocket connection established!");
+  // You can start sending/receiving data here
+  ws.send("Hello, server!");
+};
+
 sockserver.on('connection', (ws, req) => {
   clientInfo = parseClientInfo(ws, req);
   
